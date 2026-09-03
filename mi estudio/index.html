@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mi Estudio: organiza tu tiempo, tus notas y tus objetivos." />
+    <meta name="theme-color" content="#5b57e8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>Mi Estudio</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <section class="auth-gate" id="auth-gate" aria-labelledby="auth-title" hidden>
+      <div class="auth-card">
+        <div class="brand-mark" aria-hidden="true">M</div>
+        <p class="eyebrow">PRIMERA CONFIGURACIÓN</p>
+        <h1 id="auth-title">Acceso local</h1>
+        <p class="auth-intro">Introduce la credencial de acceso para autorizar este dispositivo.</p>
+        <form id="auth-form" class="data-form" autocomplete="off">
+          <label for="auth-credential">Credencial de acceso</label>
+          <input id="auth-credential" type="password" required autocomplete="new-password" autocapitalize="off" spellcheck="false" />
+          <p class="form-message" id="auth-message" role="status" aria-live="polite"></p>
+          <button class="save-button" type="submit">Entrar en Mi Estudio</button>
+        </form>
+        <p class="auth-note">Protección básica y local. La credencial y tus datos no salen de este dispositivo.</p>
+      </div>
+    </section>
+
+    <main class="app-shell" id="app-shell" hidden>
+      <section class="welcome-card home-view" id="home-view" aria-labelledby="app-title">
+        <div class="brand-mark" aria-hidden="true">M</div>
+        <header class="hero">
+          <p class="eyebrow">TU ESPACIO DE APRENDIZAJE</p>
+          <h1 id="app-title">Mi Estudio</h1>
+          <p class="subtitle" id="home-subtitle">Avanza a tu ritmo, un día cada vez.</p>
+        </header>
+        <div class="home-insight" id="home-insight" aria-live="polite">
+          <span class="insight-kicker">PARA HOY</span>
+          <p id="motivation-text">Cada sesión cuenta cuando la conviertes en un hábito.</p>
+        </div>
+        <nav class="main-menu" aria-label="Menú principal">
+          <button class="menu-button menu-button--primary" id="open-study-form" type="button" aria-expanded="false" aria-controls="study-form-panel"><span class="button-icon" aria-hidden="true">＋</span><span><strong>Registrar estudio</strong><small>Añade una sesión a tu historial</small></span></button>
+          <button class="menu-button" id="open-records" type="button"><span class="button-icon" aria-hidden="true">▤</span><span><strong>Registros</strong><small>Consulta y organiza tus sesiones</small></span></button>
+          <button class="menu-button" id="open-grades" type="button"><span class="button-icon" aria-hidden="true">✓</span><span><strong>Notas</strong><small>Exámenes y calificaciones obtenidas</small></span></button>
+          <button class="menu-button" id="open-statistics" type="button"><span class="button-icon" aria-hidden="true">▥</span><span><strong>Estadísticas</strong><small>Entiende tu forma de estudiar</small></span></button>
+          <button class="menu-button" id="open-settings" type="button"><span class="button-icon" aria-hidden="true">⚙</span><span><strong>Ajustes</strong><small>Adapta Mi Estudio a ti</small></span></button>
+        </nav>
+        <section class="home-overview" id="home-overview" aria-label="Resumen personal"></section>
+        <section class="curiosities" id="home-curiosities" aria-labelledby="curiosities-title"><div class="section-heading section-heading--compact"><div><p class="eyebrow">TUS DATOS</p><h2 id="curiosities-title">Datos curiosos</h2></div></div><div id="curiosities-list" class="curiosities-list"></div></section>
+      </section>
+
+      <section class="welcome-card view-card study-view" id="study-form-panel" aria-labelledby="study-form-title" hidden>
+        <div class="form-heading"><div><p class="eyebrow">NUEVA SESIÓN</p><h2 id="study-form-title">Registrar estudio</h2></div><button class="back-button" id="back-to-home" type="button">Inicio</button></div>
+        <form id="study-form" class="data-form">
+          <label for="subject">Asignatura</label><select id="subject" name="subject" required><option value="" selected disabled>Elige una asignatura</option></select>
+          <label for="study-type">Tipo de actividad</label><select id="study-type" name="type" required><option value="ESTUDIO">Estudio</option><option value="DEBERES">Deberes</option><option value="TRABAJOS">Trabajos</option></select>
+          <fieldset class="duration-fields"><legend>Tiempo dedicado</legend><div><label for="hours">Horas</label><input id="hours" name="hours" type="number" min="0" max="23" value="0" required /></div><div><label for="minutes">Minutos</label><input id="minutes" name="minutes" type="number" min="0" max="59" value="0" required /></div></fieldset>
+          <label for="study-date">Fecha</label><input id="study-date" name="date" type="date" required />
+          <label for="study-goal">Objetivo de la sesión <span class="optional">opcional</span></label><input id="study-goal" name="goal" type="text" maxlength="80" placeholder="Repasar ecuaciones" />
+          <label class="checkbox-option"><input id="study-important" name="important" type="checkbox" /><span>Marcar como sesión importante</span></label>
+          <p class="form-message" id="form-message" role="status" aria-live="polite"></p><button class="save-button" type="submit">Guardar registro</button>
+        </form>
+        <aside class="session-summary" id="session-summary" aria-live="polite" hidden><div class="summary-header"><div><p class="eyebrow">REGISTRO GUARDADO</p><h3>Buen trabajo</h3></div><button id="close-session-summary" class="icon-button" type="button" aria-label="Cerrar resumen">×</button></div><div id="session-summary-content" class="summary-grid"></div></aside>
+      </section>
+
+      <section class="welcome-card view-card records-view" id="records-view" aria-labelledby="records-title" hidden>
+        <div class="form-heading"><div><p class="eyebrow">HISTORIAL</p><h2 id="records-title">Registros</h2></div><button class="back-button" id="records-back" type="button">Inicio</button></div>
+        <div class="date-navigation" aria-label="Cambiar fecha"><button class="date-button" id="previous-day" type="button" aria-label="Día anterior">‹</button><input id="records-date" type="date" aria-label="Fecha de los registros" /><button class="date-button" id="next-day" type="button" aria-label="Día siguiente">›</button></div>
+        <div class="filter-toolbar"><button class="filter-toggle" id="records-filter-toggle" type="button" aria-expanded="false" aria-controls="records-filters"><span>Filtrar</span><span class="filter-chevron" aria-hidden="true">▾</span></button><span class="filter-status" id="records-filter-status">Día seleccionado</span></div>
+        <div class="records-filters" id="records-filters" hidden><div class="filter-grid"><label>Periodo<select id="records-period-filter"><option value="day">Día seleccionado</option><option value="week">Esta semana</option><option value="month">Este mes</option><option value="all">Todas las fechas</option></select></label><label>Asignatura<select id="records-subject-filter"><option value="">Todas las asignaturas</option></select></label><label>Actividad<select id="records-type-filter"><option value="">Todos los tipos</option><option value="ESTUDIO">Estudio</option><option value="DEBERES">Deberes</option><option value="TRABAJOS">Trabajos</option></select></label></div><button class="text-button" id="clear-record-filters" type="button">Restablecer filtros</button></div>
+        <div class="day-summary"><div><p id="records-summary-label">Tiempo total del día</p><small id="records-count">0 sesiones</small></div><strong id="day-total">0 min</strong></div><div class="records-list" id="records-list" aria-live="polite"></div>
+      </section>
+
+      <section class="welcome-card view-card statistics-view" id="statistics-view" aria-labelledby="statistics-title" hidden>
+        <div class="form-heading"><div><p class="eyebrow">ANÁLISIS DE ESTUDIO</p><h2 id="statistics-title">Estadísticas</h2></div><button class="back-button" id="statistics-back" type="button">Inicio</button></div>
+        <div class="period-selector" role="group" aria-label="Periodo de estadísticas"><button type="button" data-period="week" class="period-button is-active">Semana</button><button type="button" data-period="month" class="period-button">Mes</button><button type="button" data-period="term" class="period-button">Trimestre</button></div>
+        <p class="statistics-range" id="statistics-range"></p>
+        <nav class="statistics-nav" aria-label="Secciones de estadísticas"><button type="button" data-stat-page="summary" class="stat-nav-button is-active">Resumen</button><button type="button" data-stat-page="daily" class="stat-nav-button">Por día</button><button type="button" data-stat-page="subjects" class="stat-nav-button">Asignaturas</button><button type="button" data-stat-page="activity" class="stat-nav-button">Actividad</button><button type="button" data-stat-page="evolution" class="stat-nav-button">Evolución</button><button type="button" data-stat-page="terms" class="stat-nav-button">Trimestres</button><button type="button" data-stat-page="records" class="stat-nav-button">Récords</button><button type="button" data-stat-page="goals" class="stat-nav-button">Objetivos</button></nav>
+        <div id="statistics-content" class="statistics-content" aria-live="polite"></div>
+      </section>
+
+      <section class="welcome-card view-card grades-view" id="grades-view" aria-labelledby="grades-title" hidden>
+        <div class="form-heading"><div><p class="eyebrow">SEGUIMIENTO ACADÉMICO</p><h2 id="grades-title">Notas</h2></div><button class="back-button" id="grades-back" type="button">Inicio</button></div>
+        <div class="content-tabs" role="tablist" aria-label="Exámenes y notas"><button class="content-tab is-active" id="grade-mode-exam" type="button" role="tab" aria-selected="true" data-grade-mode="exam">Exámenes</button><button class="content-tab" id="grade-mode-note" type="button" role="tab" aria-selected="false" data-grade-mode="note">Notas obtenidas</button></div>
+        <form id="grades-form" class="data-form grades-form"><div class="form-subheading"><h3 id="grade-form-title">Nuevo examen</h3><p id="grade-form-help">Puede guardarse ahora y añadir la nota después.</p></div><label for="grade-subject">Asignatura</label><select id="grade-subject" name="subject" required><option value="" selected disabled>Elige una asignatura</option></select><label for="grade-description">Nombre o título</label><input id="grade-description" name="description" type="text" maxlength="120" placeholder="Examen tema 3" required /><label for="grade-date">Fecha</label><input id="grade-date" name="date" type="date" required /><fieldset class="duration-fields grade-fields"><legend>Nota <span class="optional">opcional en exámenes</span></legend><div><label for="grade-score">Nota obtenida</label><input id="grade-score" name="score" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Pendiente" /></div><div><label for="grade-maximum">Nota máxima</label><input id="grade-maximum" name="maximum" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="10" /></div></fieldset><p class="form-message" id="grades-message" role="status" aria-live="polite"></p><button class="save-button" id="grade-submit" type="submit">Guardar examen</button></form>
+        <div class="exam-dashboard" aria-live="polite"><section class="stats-card"><div class="section-heading"><div><p class="eyebrow">PLANIFICACIÓN</p><h3>Próximos exámenes</h3></div></div><div class="upcoming-exams" id="upcoming-exams"></div></section><section class="stats-card"><h3>Exámenes sin nota</h3><p class="section-help">Todavía no entran en ninguna media.</p><div class="pending-exams" id="pending-exams"></div></section></div>
+        <div class="notes-dashboard" aria-live="polite"><section class="stats-card"><div class="section-heading"><div><p class="eyebrow">RESULTADOS</p><h3>Resumen de notas</h3></div></div><div class="stats-grid" id="grades-summary"></div></section><section class="stats-card"><h3>Media por asignatura</h3><div class="stats-list" id="grades-subject-averages"></div></section><section class="stats-card"><h3>Evolución de notas</h3><div id="grades-evolution"></div></section><section class="stats-card"><h3>Notas obtenidas</h3><div class="grades-list" id="grades-list"></div></section></div>
+      </section>
+
+      <section class="welcome-card view-card settings-view" id="settings-view" aria-labelledby="settings-title" hidden>
+        <div class="form-heading"><div><p class="eyebrow">PERSONALIZA TU ESPACIO</p><h2 id="settings-title">Ajustes</h2></div><button class="back-button" id="settings-back" type="button">Inicio</button></div><p class="form-message" id="settings-message" role="status" aria-live="polite"></p>
+        <div class="settings-groups">
+          <details class="settings-group" open><summary>Apariencia</summary><div class="settings-body"><div class="settings-grid"><label>Tema<select id="setting-theme"><option value="auto">Automático</option><option value="light">Claro</option><option value="dark">Oscuro</option></select></label><label>Color de acento<select id="setting-accent"><option value="violet">Violeta</option><option value="blue">Azul</option><option value="green">Verde</option><option value="coral">Coral</option></select></label></div><label class="toggle-option"><input id="setting-animations" type="checkbox" checked /><span>Activar animaciones suaves</span></label></div></details>
+          <details class="settings-group" open><summary>Inicio</summary><div class="settings-body"><label class="toggle-option"><input id="setting-home-subtitle" type="checkbox" checked /><span>Mostrar frase de inicio</span></label><label class="toggle-option"><input id="setting-home-motivation" type="checkbox" checked /><span>Mostrar frase motivadora</span></label><label class="toggle-option"><input id="setting-home-curiosities" type="checkbox" checked /><span>Mostrar datos curiosos</span></label></div></details>
+          <details class="settings-group" open><summary>Experiencia</summary><div class="settings-body"><label class="toggle-option"><input id="setting-sounds" type="checkbox" /><span>Activar sonidos sutiles</span></label><label class="toggle-option"><input id="setting-notifications" type="checkbox" /><span>Avisos al guardar</span></label><p class="settings-help">Los sonidos se generan en el dispositivo y nunca usan servicios externos.</p></div></details>
+          <details class="settings-group"><summary>Protección local</summary><div class="settings-body"><p class="settings-help">Esta protección solo se solicita en la primera configuración de este dispositivo. No es un sistema de seguridad de alto nivel.</p><form id="credential-form" class="data-form credential-form" autocomplete="off"><label for="current-credential">Credencial actual</label><input id="current-credential" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" /><label for="new-credential">Nueva credencial</label><input id="new-credential" type="password" minlength="8" autocomplete="new-password" autocapitalize="off" spellcheck="false" /><label for="confirm-credential">Repetir nueva credencial</label><input id="confirm-credential" type="password" minlength="8" autocomplete="new-password" autocapitalize="off" spellcheck="false" /><p class="form-message" id="credential-message" role="status" aria-live="polite"></p><button class="record-action" type="submit">Cambiar credencial</button></form><button id="reset-credential" class="text-button" type="button">Restablecer credencial inicial</button></div></details>
+          <details class="settings-group" open><summary>Sesiones</summary><div class="settings-body"><label class="toggle-option"><input id="setting-session-summary" type="checkbox" checked /><span>Mostrar resumen después de guardar</span></label><p class="settings-help">Aquí puedes anotar un objetivo breve en cada sesión. No hay cronómetro ni sesiones automáticas.</p></div></details>
+          <details class="settings-group" open><summary>Asignaturas</summary><div class="settings-body"><p class="settings-help">Las asignaturas predeterminadas también se pueden editar u ocultar. Los registros históricos se conservan.</p><form id="custom-subject-form" class="inline-form"><input id="custom-subject-name" type="text" maxlength="40" placeholder="Nueva asignatura" required /><input id="subject-edit-id" type="hidden" /><input id="subject-edit-kind" type="hidden" /><button class="record-action" id="subject-submit" type="submit">Añadir</button><button class="text-button" id="subject-cancel" type="button" hidden>Cancelar</button></form><div id="custom-subjects" class="tag-list"></div></div></details>
+          <details class="settings-group" open><summary>Objetivos</summary><div class="settings-body"><p class="settings-help">Marca los objetivos activos que quieres incluir en el progreso del periodo seleccionado.</p><form id="goals-form" class="inline-form goals-form"><input id="goal-name" type="text" maxlength="60" placeholder="Ej.: 5 horas esta semana" required /><input id="goal-minutes" type="number" min="1" step="1" placeholder="Minutos" required /><input id="goal-edit-id" type="hidden" /><button class="record-action" id="goal-submit" type="submit">Añadir</button><button class="text-button" id="goal-cancel" type="button" hidden>Cancelar</button></form><div id="goals-list" class="settings-list"></div></div></details>
+          <details class="settings-group" open><summary>Calendario y curso</summary><div class="settings-body"><label>Curso/año escolar<input id="school-year" type="text" maxlength="30" placeholder="Ej.: 2026-2027" /></label><div class="term-settings"><label><span>1º trimestre</span><input id="term-1-start" type="date" aria-label="Inicio del primer trimestre" /><input id="term-1-end" type="date" aria-label="Final del primer trimestre" /></label><label><span>2º trimestre</span><input id="term-2-start" type="date" aria-label="Inicio del segundo trimestre" /><input id="term-2-end" type="date" aria-label="Final del segundo trimestre" /></label><label><span>3º trimestre</span><input id="term-3-start" type="date" aria-label="Inicio del tercer trimestre" /><input id="term-3-end" type="date" aria-label="Final del tercer trimestre" /></label></div><button id="save-terms" class="record-action" type="button">Guardar calendario</button></div></details>
+          <details class="settings-group" open><summary>Datos y privacidad</summary><div class="settings-body"><p class="settings-help">Tus registros, notas y ajustes se guardan solo en este dispositivo mediante almacenamiento local. No se envían a ningún servidor.</p><div class="settings-actions"><button id="export-data" class="record-action" type="button">Exportar datos</button><label class="record-action import-button">Importar datos<input id="import-data" type="file" accept="application/json" hidden /></label><button id="clear-history" class="record-action record-action--delete" type="button">Borrar historial</button></div><details class="trash-details" id="trash-details"><summary>Papelera <span id="trash-count"></span></summary><p class="settings-help">Los registros y exámenes eliminados se conservan durante 30 días.</p><div id="trash-list" class="trash-list"></div></details></div></details>
+          <details class="settings-group" open><summary>Mi Estudio</summary><div class="settings-body"><div class="app-info"><strong>Mi Estudio</strong><span>Versión 1.0.0</span><p>Una aplicación local para registrar hábitos de estudio, organizar exámenes y revisar tu progreso.</p></div><button id="reset-settings" class="record-action" type="button">Restablecer preferencias</button></div></details>
+        </div>
+      </section>
+    </main>
+    <script src="js/app.js"></script>
+  </body>
+</html>
